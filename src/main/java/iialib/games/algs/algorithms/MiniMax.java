@@ -94,7 +94,7 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 			int max = Integer.MIN_VALUE;
 			for(Move m : board.possibleMoves(role)) {
 				int value = minimax(board.play(m, role), playerMinRole,depth+1);
-				if(max<value) {
+				if(max<=value) {
 					max = value;
 					bestMove = m;
 				}				
@@ -110,7 +110,7 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 			int min = Integer.MAX_VALUE;
 			for(Move m : board.possibleMoves(role)) {
 				int value = maximin(board.play(m, role), playerMaxRole, depth+1);
-				if(min>value) {
+				if(min>=value) {
 					min = value;
 					bestMove = m;
 				}	

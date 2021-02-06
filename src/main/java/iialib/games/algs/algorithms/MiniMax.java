@@ -43,8 +43,6 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
      */
 	private int nbLeaves;
 	
-	private Move bestMove;
-
 	// --------- Constructors ---------
 
 	public MiniMax(Role playerMaxRole, Role playerMinRole, IHeuristic<Board, Role> h) {
@@ -67,13 +65,10 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 	public Move bestMove(Board board, Role playerRole) {
 		System.out.println("[MiniMax]");
 		if(playerRole == playerMinRole) {
-			minimax(board,playerRole,0);
+			return minimax(board,playerRole,0).moveReturn;
 		}else {
-			maximin(board, playerRole, 0);
+			return maximin(board, playerRole, 0).moveReturn;
 		}
-		
-		// TODO
-		return bestMove;
 	}
 
 	/*
@@ -87,35 +82,46 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 	/*
 	 * PRIVATE METHODS ===============
 	 */
-	private int maximin(Board board,Role role, int depth) {
+	private minMaxReturn maximin(Board board,Role role, int depth) {
 		if(depth> depthMax || board.isGameOver()) {
-			return h.eval(board, role);
+			return new minMaxReturn(h.eval(board, role),null);
 		}else {
+			Move bestMove = null;
 			int max = Integer.MIN_VALUE;
 			for(Move m : board.possibleMoves(role)) {
-				int value = minimax(board.play(m, role), playerMinRole,depth+1);
+				int value = minimax(board.play(m, role), playerMinRole,depth+1).heuristicReturn;
 				if(max<=value) {
 					max = value;
 					bestMove = m;
 				}				
 			}
-			return max;
+			return new minMaxReturn(max,bestMove);
 		}
 	}
 	
-	private int minimax(Board board,Role role, int depth) {
+	private minMaxReturn minimax(Board board,Role role, int depth) {
 		if(depth> depthMax || board.isGameOver()) {
-			return h.eval(board, role);
+			return new minMaxReturn(h.eval(board, role),null);
 		}else {
+			Move bestMove = null;
 			int min = Integer.MAX_VALUE;
 			for(Move m : board.possibleMoves(role)) {
-				int value = maximin(board.play(m, role), playerMaxRole, depth+1);
+				int value = maximin(board.play(m, role), playerMaxRole, depth+1).heuristicReturn;
 				if(min>=value) {
 					min = value;
 					bestMove = m;
 				}	
 			}
-			return min;
+			return new minMaxReturn(min,bestMove);
+		}
+	}
+	
+	private class minMaxReturn {
+		int heuristicReturn;
+		Move moveReturn;
+		minMaxReturn(int h, Move m) {
+			this.heuristicReturn = h;
+			this.moveReturn = m;
 		}
 	}
 }

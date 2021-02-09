@@ -82,9 +82,9 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 	/*
 	 * PRIVATE METHODS ===============
 	 */
-	private minMaxReturn maximin(Board board,Role role, int depth) {
+	private MinMaxReturn maximin(Board board,Role role, int depth) {
 		if(depth> depthMax || board.isGameOver()) {
-			return new minMaxReturn(h.eval(board, role),null);
+			return new MinMaxReturn(h.eval(board, role),null);
 		}else {
 			Move bestMove = null;
 			int max = Integer.MIN_VALUE;
@@ -95,13 +95,13 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 					bestMove = m;
 				}				
 			}
-			return new minMaxReturn(max,bestMove);
+			return new MinMaxReturn(max,bestMove);
 		}
 	}
 	
-	private minMaxReturn minimax(Board board,Role role, int depth) {
+	private MinMaxReturn minimax(Board board,Role role, int depth) {
 		if(depth> depthMax || board.isGameOver()) {
-			return new minMaxReturn(h.eval(board, role),null);
+			return new MinMaxReturn(h.eval(board, role),null);
 		}else {
 			Move bestMove = null;
 			int min = Integer.MAX_VALUE;
@@ -112,14 +112,14 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 					bestMove = m;
 				}	
 			}
-			return new minMaxReturn(min,bestMove);
+			return new MinMaxReturn(min,bestMove);
 		}
 	}
 	
-	private class minMaxReturn {
+	private class MinMaxReturn {
 		int heuristicReturn;
 		Move moveReturn;
-		minMaxReturn(int h, Move m) {
+		MinMaxReturn(int h, Move m) {
 			this.heuristicReturn = h;
 			this.moveReturn = m;
 		}

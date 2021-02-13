@@ -85,6 +85,7 @@ public class AlphaBeta<Move extends IMove,Role extends IRole,Board extends IBoar
 			return new AlphaBetaReturn(alpha, bestMove);
 		}
 	}
+
 	
 	private AlphaBetaReturn minMax(Board board, Role role, int depth, int alpha, int beta) {
 		if( depth> depthMax || board.isGameOver()) {
@@ -109,6 +110,7 @@ public class AlphaBeta<Move extends IMove,Role extends IRole,Board extends IBoar
 			return new AlphaBetaReturn(beta, bestMove);
 		}
 	}
+
 	
 	private class AlphaBetaReturn{
 		int heuristicReturn;

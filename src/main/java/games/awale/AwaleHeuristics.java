@@ -4,7 +4,7 @@ package games.awale;
 import iialib.games.algs.IHeuristic;
 
 public class AwaleHeuristics {
-	//Nombre d'emplacement amis disponible - Nombre d'emplacement ennemies disponible
+	
 		public static IHeuristic<AwaleBoard,AwaleRole>  hHaut = (board,role) -> {
 			if(board.isGameOver()) {
 				switch(board.getScores().get(0).getStatus()) {
@@ -18,7 +18,7 @@ public class AwaleHeuristics {
 					return 0;
 				}
 			} else {
-				return board.grenier_H;
+				return board.getGrenier(AwaleRole.HAUT);
 			}
 
 	    };
@@ -37,7 +37,7 @@ public class AwaleHeuristics {
 					return 0;
 				}	
 			} else {
-				return board.grenier_B;
+				return board.getGrenier(AwaleRole.BAS);
 			}
 
 		};

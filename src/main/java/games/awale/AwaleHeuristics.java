@@ -9,7 +9,7 @@ public class AwaleHeuristics {
 			if(board.isGameOver()) {
 				switch(board.getScores().get(0).getStatus()) {
 				case WIN:
-					return IHeuristic.MAX_VALUE; //On a gagner
+					return IHeuristic.MAX_VALUE; //On a gagné
 				case LOOSE:
 					return IHeuristic.MIN_VALUE; //On a perdu
 				case TIE:
@@ -28,7 +28,7 @@ public class AwaleHeuristics {
 			if(board.isGameOver()) {
 				switch(board.getScores().get(1).getStatus()) {
 				case WIN:
-					return IHeuristic.MAX_VALUE; //On a gagner
+					return IHeuristic.MAX_VALUE; //On a gagné
 				case LOOSE:
 					return IHeuristic.MIN_VALUE; //On a perdu
 				case TIE:

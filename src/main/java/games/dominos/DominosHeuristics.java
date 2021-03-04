@@ -11,7 +11,7 @@ public class DominosHeuristics {
 		if(NbPossibilitesAmis == 0)
 			return IHeuristic.MIN_VALUE; //On a perdu
 		if(NbpossibilitesEnnemies==0)
-			return IHeuristic.MAX_VALUE; //On a gagner
+			return IHeuristic.MAX_VALUE; //On a gagné
 		return NbPossibilitesAmis - NbpossibilitesEnnemies;
     };
     
@@ -22,7 +22,7 @@ public class DominosHeuristics {
 		if(NbPossibilitesAmis == 0)
 			return IHeuristic.MIN_VALUE; //On a perdu
 		if(NbpossibilitesEnnemies==0)
-			return IHeuristic.MAX_VALUE; //On a gagner
+			return IHeuristic.MAX_VALUE; //On a gagné
 		return NbPossibilitesAmis - NbpossibilitesEnnemies;
 	};
    

@@ -64,11 +64,18 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 	@Override
 	public Move bestMove(Board board, Role playerRole) {
 		System.out.println("[MiniMax]");
+		nbNodes = 0; nbLeaves = 0;
 		if(playerRole == playerMinRole) {
-			return minimax(board,playerRole,0).moveReturn;
+			Move m = minimax(board,playerRole,0).moveReturn;
+			System.out.println("nbNodes = " + nbNodes + "\t nbLeaves = " + nbLeaves);
+			return m;
 		}else {
-			return maximin(board, playerRole, 0).moveReturn;
+			Move m =  maximin(board, playerRole, 0).moveReturn;
+			System.out.println("nbNodes = " + nbNodes + "\t nbLeaves = " + nbLeaves);
+			return m;
+			
 		}
+		
 	}
 
 	/*
@@ -84,11 +91,13 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 	 */
 	private MinMaxReturn maximin(Board board,Role role, int depth) {
 		if(depth> depthMax || board.isGameOver()) {
+			nbLeaves++;
 			return new MinMaxReturn(h.eval(board, role),null);
 		}else {
 			Move bestMove = null;
 			int max = Integer.MIN_VALUE;
 			for(Move m : board.possibleMoves(role)) {
+				if(depth < depthMax) nbNodes++;
 				int value = minimax(board.play(m, role), playerMinRole,depth+1).heuristicReturn;
 				if(max<=value) {
 					max = value;
@@ -101,11 +110,13 @@ public class MiniMax<Move extends IMove,Role extends IRole,Board extends IBoard<
 	
 	private MinMaxReturn minimax(Board board,Role role, int depth) {
 		if(depth> depthMax || board.isGameOver()) {
+			nbLeaves++;
 			return new MinMaxReturn(h.eval(board, role),null);
 		}else {
 			Move bestMove = null;
 			int min = Integer.MAX_VALUE;
 			for(Move m : board.possibleMoves(role)) {
+				if(depth < depthMax) nbNodes++;
 				int value = maximin(board.play(m, role), playerMaxRole, depth+1).heuristicReturn;
 				if(min>=value) {
 					min = value;

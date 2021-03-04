@@ -56,6 +56,8 @@ public class AlphaBeta<Move extends IMove,Role extends IRole,Board extends IBoar
 		
 	@Override
 	public Move bestMove(Board board, Role playerRole) {
+		System.out.println("[AlphaBeta]");
+		nbNodes = 0; nbLeaves = 0;
 		Move bestMove = maxMin(board, playerRole, 0,  IHeuristic.MIN_VALUE, IHeuristic.MAX_VALUE).moveReturn;
 		System.out.println("nbNodes = " + nbNodes + "\t nbLeaves = " + nbLeaves);
 		return bestMove;
